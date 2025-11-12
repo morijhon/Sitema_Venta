@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Autenticacion Avanzado</title>
+
+    <style>
+        /* ============================== */
+        /* I. STILI GENERALI E SFONDO */
+        /* ============================== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117; /* Sfondo scuro */
+            color: #c9d1d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* ============================== */
+        /* II. CONTENITORE PRINCIPALE (MODERNO) */
+        /* ============================== */
+        .auth-container {
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #30363d;
+            transition: height 0.3s ease; /* Transizione per il cambio di dimensione */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #58a6ff;
+        }
+
+        /* Nasconde i moduli non attivi */
+        .form-panel {
+            display: none;
+        }
+
+        /* Rende visibile il modulo attivo */
+        .form-panel.active {
+            display: block;
+        }
+
+        /* ============================== */
+        /* III. STILI DEGLI INPUT E GRUPPI */
+        /* ============================== */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input:not([type="checkbox"]) {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            box-sizing: border-box; 
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #58a6ff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(88, 166, 255, 0.5);
+        }
+
+        /* ============================== */
+        /* IV. STILI DEI PULSANTI */
+        /* ============================== */
+        .auth-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #58a6ff;
+            color: #0d1117;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .auth-button:hover {
+            background-color: #79c0ff;
+        }
+
+        .link-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9em;
+        }
+
+        .link-text a {
+            color: #58a6ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        
+        <div id="login-panel" class="form-panel active">
+            <h1>🔑Acceder</h1>
+            <form action="../login.php" method="POST">
+                <div class="input-group">
+                    <label for="login-email">Correo</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                
+                <button type="submit" class="auth-button">Iniciar</button>
+            </form>
+
+            <p class="link-text">
+                <a onclick="showPanel('forgot-password-panel')">Olvide mi contraseña?</a>
+            </p>
+            <div id="forgot-password-panel" class="form-panel">
+            <h1>❓Contraseña Olvidada</h1>
+            <p style="text-align: center; margin-bottom: 25px;">
+                Introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un enlace para restablecer la contraseña.
+            </p>
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="forgot-email">Email</label>
+                    <input type="email" id="forgot-email" name="email" required>
+                </div>
+                
+                <button type="submit" class="auth-button">Enviar enlace de restablecimiento</button>
+            </form>
+
+            <p class="link-text">
+                <a onclick="showPanel('login-panel')">Retornar al Login</a>
+            </p>
+        </div>
+
+    </div>
+            <p class="link-text">
+                ¿No tienes una cuenta? <a onclick="showPanel('register-panel')" href="http://localhost/mi_tienda/create_user.php">Registrarse aqui</a>
+            </p>
+        </div>
+
+    <script>
+        /**
+         * Funzione per mostrare un pannello e nascondere gli altri.
+         * @param {string} panelId - L'ID del pannello da mostrare.
+         */
+        function showPanel(panelId) {
+            // 1. Nascondi tutti i pannelli
+            const panels = document.querySelectorAll('.form-panel');
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // 2. Mostra il pannello desiderato
+            const activePanel = document.getElementById(panelId);
+            if (activePanel) {
+                activePanel.classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
